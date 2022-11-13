@@ -1,25 +1,12 @@
 ﻿using ReactiveUI;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
 
 namespace Atylos.ModifiableProperty
 {
-    public class ModifiableProperty: ReactiveObject
+    public class ModifiableProperty<TOwner, TProperty> : ModifiableProperty
     {
-        public virtual string Name { get; }
-
-        public ModifiableProperty(string name)
-        {
-            Name = name;
-        }
-    }
-    public class ModifiableProperty<TOwner, TProperty>: ModifiableProperty
-    {
-        
         public TOwner Owner { get; }
-        public TProperty Value 
+        public TProperty Value
         {
             get => _value;
             set
@@ -31,9 +18,9 @@ namespace Atylos.ModifiableProperty
 
                 PropertiesExtensions.CreateModificatorIfNotExist<TOwner, TProperty>(Name);
 
-                foreach(var modificator in PropertiesAndModificators.propertyModificators[TypeOf<TOwner>.Type][Name])
+                foreach (var modificator in PropertiesAndModificators.propertyModificators[TypeOf<TOwner>.Type][Name])
                 {
-                    if((bool)(modificator?.CanModify(Owner)))
+                    if ((bool)(modificator?.CanModify(Owner)))
                     {
                         tValue = (TProperty)modificator.Modify(Owner, tValue);
                     }
@@ -42,12 +29,12 @@ namespace Atylos.ModifiableProperty
 
                 this.RaisePropertyChanged();
             }
-            
+
         }
         private TProperty _value;
 
 
-        public TProperty ModifiedValue 
+        public TProperty ModifiedValue
         {
             get => _modifiedValue;
             private set => this.RaiseAndSetIfChanged(ref _modifiedValue, value);

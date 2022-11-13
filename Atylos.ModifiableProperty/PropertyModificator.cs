@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
-using System.Xml.Linq;
 
 namespace Atylos.ModifiableProperty
 {
@@ -37,8 +36,8 @@ namespace Atylos.ModifiableProperty
 
         public static PropertyModificator<TTarget, TProperty> CreateStaticModificator<TTarget, TProperty>(
             Expression<Func<TTarget, TProperty>> target,
-            Func<TTarget, TProperty, TProperty> modificator, 
-            Func<TTarget, bool> predicate = null, 
+            Func<TTarget, TProperty, TProperty> modificator,
+            Func<TTarget, bool> predicate = null,
             float order = float.MaxValue)
         {
             predicate = predicate == null ? (x => true) : predicate;
@@ -53,7 +52,7 @@ namespace Atylos.ModifiableProperty
 
             var propertyModificator = new PropertyModificator<TTarget, TProperty>(
                     property.Name,
-                    modificator, 
+                    modificator,
                     predicate,
                     order
             );
@@ -72,33 +71,4 @@ namespace Atylos.ModifiableProperty
             return Order.CompareTo(other.Order);
         }
     }
-    public class PropertyModificator<TTarget, TProperty>: PropertyModificator
-    {
-
-        public PropertyModificator(string targetName, Func<TTarget, TProperty, TProperty> modificator, Func<TTarget, bool> predicate, float order) : base(
-            targetName,
-            (a, b) => modificator((TTarget)a, (TProperty)b),
-            x => predicate((TTarget)x),
-            order)
-        { }
-
-        public override Type TargetType { get; } = TypeOf<TTarget>.Type;
-        
-        public virtual bool CanModify(TTarget target) => base.CanModify(target);
-        public virtual TProperty Modify(TTarget target, TProperty value) => (TProperty)base.Modify(target, value);
-    }
-
-    public class PropertyModificator<TOwner, TTarget, TProperty> : PropertyModificator<TTarget, TProperty>
-    {
-        public PropertyModificator(
-            string targetName,
-            Func<TTarget, TProperty, TProperty> modificator,
-            Func<TTarget, bool> predicate,
-            float order)
-            : base(targetName, modificator, predicate, order) { }
-
-
-    }
-
-
 }
