@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace AtylosBase
+namespace Atylos
 {
     public static class AtylosExtensions
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AtylosBase.PropertyModifire;
+using Atylos.PropertyModifire;
 namespace Atylos.Tests
 {
     public class ClassWithModifiableProperties

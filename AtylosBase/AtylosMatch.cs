@@ -1,9 +1,9 @@
-﻿using AtylosBase.Abstraction;
+﻿using Atylos.Abstraction;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace AtylosBase
+namespace Atylos
 {
     public class AtylosMatch
     {

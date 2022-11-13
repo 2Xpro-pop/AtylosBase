@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AtylosBase
+namespace Atylos
 {
     public class AtylosBattle
     {

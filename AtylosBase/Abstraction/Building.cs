@@ -4,7 +4,7 @@ using System.Reactive;
 using System.Reactive.Subjects;
 using System.Text;
 
-namespace AtylosBase.Abstraction
+namespace Atylos.Abstraction
 {
     public abstract class Building
     {

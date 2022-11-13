@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace AtylosBase.PropertyModifire
+namespace Atylos.PropertyModifire
 {
     internal static class PropertiesAndModificators
     {

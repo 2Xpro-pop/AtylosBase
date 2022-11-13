@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using AtylosBase.PropertyModifire;
+using Atylos.PropertyModifire;
 
 namespace Atylos.Tests
 {

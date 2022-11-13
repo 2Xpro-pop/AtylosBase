@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AtylosBase
+namespace Atylos
 {
     public class UnitBase
     {

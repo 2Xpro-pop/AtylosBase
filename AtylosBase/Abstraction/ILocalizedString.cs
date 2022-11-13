@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AtylosBase.Abstraction
+namespace Atylos.Abstraction
 {
     public interface ILocalizedString
     {

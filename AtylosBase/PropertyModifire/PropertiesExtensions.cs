@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace AtylosBase.PropertyModifire
+namespace Atylos.PropertyModifire
 {
     public static class PropertiesExtensions
     {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
-namespace AtylosBase.PropertyModifire
+namespace Atylos.PropertyModifire
 {
     public class ModifiableProperty: ReactiveObject
     {

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace AtylosBase
+namespace Atylos
 {
     internal class SimpleServiceProvider : IServiceProvider, IEnumerable<object>
     {
