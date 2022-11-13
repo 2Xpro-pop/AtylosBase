@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using System.Xml.Linq;
 
 namespace AtylosBase.PropertyModifire
 {
@@ -25,7 +26,13 @@ namespace AtylosBase.PropertyModifire
         public virtual string TargetName { get; }
         public virtual float Order { get; }
 
-        public void Dispose() => GC.SuppressFinalize(this);
+        public void Dispose()
+        {
+            var modificators = PropertiesAndModificators.propertyModificators[TargetType][TargetName];
+            modificators.Remove(this);
+
+            GC.SuppressFinalize(this);
+        }
 
 
         public static PropertyModificator<TTarget, TProperty> CreateStaticModificator<TTarget, TProperty>(
@@ -34,7 +41,7 @@ namespace AtylosBase.PropertyModifire
             Func<TTarget, bool> predicate = null, 
             float order = float.MaxValue)
         {
-            predicate = x => true;
+            predicate = predicate == null ? (x => true) : predicate;
 
             if (!(target.Body is MemberExpression member))
             {
@@ -49,7 +56,9 @@ namespace AtylosBase.PropertyModifire
                     modificator, 
                     predicate,
                     order
-                );
+            );
+
+            PropertiesExtensions.CreateModificatorIfNotExist<TTarget, TProperty>(property.Name);
 
             var modificators = PropertiesAndModificators.propertyModificators[TypeOf<TTarget>.Type][property.Name];
 

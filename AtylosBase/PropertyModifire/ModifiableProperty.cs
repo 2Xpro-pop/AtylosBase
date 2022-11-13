@@ -9,6 +9,11 @@ namespace AtylosBase.PropertyModifire
     public class ModifiableProperty: ReactiveObject
     {
         public virtual string Name { get; }
+
+        public ModifiableProperty(string name)
+        {
+            Name = name;
+        }
     }
     public class ModifiableProperty<TOwner, TProperty>: ModifiableProperty
     {
@@ -20,7 +25,11 @@ namespace AtylosBase.PropertyModifire
             set
             {
                 _value = value;
+                _modifiedValue = value;
+
                 var tValue = value;
+
+                PropertiesExtensions.CreateModificatorIfNotExist<TOwner, TProperty>(Name);
 
                 foreach(var modificator in PropertiesAndModificators.propertyModificators[TypeOf<TOwner>.Type][Name])
                 {
@@ -45,5 +54,9 @@ namespace AtylosBase.PropertyModifire
         }
         private TProperty _modifiedValue;
 
+        public ModifiableProperty(string name, TOwner owner) : base(name)
+        {
+            Owner = owner;
+        }
     }
 }

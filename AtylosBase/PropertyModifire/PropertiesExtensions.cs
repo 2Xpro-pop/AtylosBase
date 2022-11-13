@@ -1,6 +1,7 @@
 ﻿using ReactiveUI;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -13,6 +14,8 @@ namespace AtylosBase.PropertyModifire
 
         public static TPropety GetValue<TOwner, TPropety>(this TOwner owner, [CallerMemberName] string name = "")
         {
+            CreatePropertyIfNotExist<TOwner, TPropety>(owner, name);
+
             var properties = PropertiesAndModificators.modifiableProperties;
             var property = (ModifiableProperty<TOwner, TPropety>)properties[owner][name];
 
@@ -21,7 +24,10 @@ namespace AtylosBase.PropertyModifire
 
         public static void SetValue<TOwner, TPropety>(this TOwner owner, TPropety value, [CallerMemberName] string name = "")
         {
+            CreatePropertyIfNotExist<TOwner, TPropety>(owner, name);
+
             var properties = PropertiesAndModificators.modifiableProperties;
+
             var property = (ModifiableProperty<TOwner, TPropety>)properties[owner][name];
 
             property.Value = value;
@@ -40,6 +46,37 @@ namespace AtylosBase.PropertyModifire
             var modifiableProperty = (ModifiableProperty<TOwner, TPropety>)properties[owner][property.Name];
 
             return modifiableProperty.WhenAnyValue(x => x.ModifiedValue);
+        }
+
+        public static void CreatePropertyIfNotExist<TOwner, TPropety>(TOwner owner, [CallerMemberName] string name = "")
+        {
+            var properties = PropertiesAndModificators.modifiableProperties;
+
+            if (!properties.ContainsKey(owner))
+            {
+                properties[owner] = new Dictionary<string, ModifiableProperty>();
+            }
+
+            if (!properties[owner].ContainsKey(name))
+            {
+                properties[owner][name] = new ModifiableProperty<TOwner, TPropety>(name, owner);
+            }
+        }
+
+        public static void CreateModificatorIfNotExist<TOwner, TPropety>(string targetName)
+        {
+            var modificators = PropertiesAndModificators.propertyModificators;
+            var type = TypeOf<TOwner>.Type;
+
+            if (!modificators.ContainsKey(type))
+            {
+                modificators[type] = new Dictionary<string, List<PropertyModificator>>();
+            }
+
+            if (!modificators[type].ContainsKey(targetName))
+            {
+                modificators[type][targetName] = new List<PropertyModificator>();
+            }
         }
     }
 }
