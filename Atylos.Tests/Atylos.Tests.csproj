@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AtylosBase\AtylosBase.csproj" />
+    <ProjectReference Include="..\AtylosBase\Atylos.csproj" />
   </ItemGroup>
 
 </Project>
