@@ -1,4 +1,4 @@
-﻿using Atylos.PropertyModifire;
+﻿using Atylos.ModifiableProperty;
 using System;
 using System.Collections.Generic;
 using System.Linq;

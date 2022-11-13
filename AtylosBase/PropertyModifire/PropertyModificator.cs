@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
 
-namespace Atylos.PropertyModifire
+namespace Atylos.ModifiableProperty
 {
     public class PropertyModificator : IDisposable, IComparable<PropertyModificator>
     {
