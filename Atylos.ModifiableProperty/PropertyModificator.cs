@@ -33,6 +33,11 @@ namespace Atylos.ModifiableProperty
             GC.SuppressFinalize(this);
         }
 
+        public int CompareTo(PropertyModificator other)
+        {
+            return Order.CompareTo(other.Order);
+        }
+
 
         public static PropertyModificator<TTarget, TProperty> CreateStaticModificator<TTarget, TProperty>(
             Expression<Func<TTarget, TProperty>> target,
@@ -66,9 +71,27 @@ namespace Atylos.ModifiableProperty
             return propertyModificator;
         }
 
-        public int CompareTo(PropertyModificator other)
+        public static PropertyModificator<TOwner, TTarget, TProperty> CreateModificator<TOwner, TTarget, TProperty>(
+            Expression<Func<TTarget, TProperty>> target,
+            float order = float.MaxValue)
         {
-            return Order.CompareTo(other.Order);
+
+            if (!(target.Body is MemberExpression member))
+            {
+                throw new ArgumentException("Need reference to property", nameof(target));
+            }
+
+            var property = member.Member as PropertyInfo;
+
+            PropertiesExtensions.CreateModificatorIfNotExist<TTarget, TProperty>(property.Name);
+
+            var propertyModificator = new PropertyModificator<TOwner, TTarget, TProperty>(property.Name, order);
+
+            var modificators = PropertiesAndModificators.propertyModificators[TypeOf<TTarget>.Type][property.Name];
+
+            modificators.AddSorted(propertyModificator);
+
+            return propertyModificator;
         }
     }
 }

@@ -8,7 +8,6 @@ namespace Atylos.ModifiableProperty
 {
     public static class AtylosExtensions
     {
-
         public static void AddSorted<T>(this List<T> @this, T item) where T : IComparable<T>
         {
             if (@this.Count == 0)
