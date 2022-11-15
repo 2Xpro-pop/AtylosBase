@@ -72,7 +72,10 @@ namespace Atylos.Tests
 
             using(var modificators = new Modificators())
             {
-                target.Incomming = 0;
+                using(new Modificators())
+                {
+                    Assert.That(target.Incomming, Is.EqualTo(60));
+                }
                 Assert.That(target.Incomming, Is.EqualTo(20));
             }
             Assert.That(target.Incomming, Is.EqualTo(0));

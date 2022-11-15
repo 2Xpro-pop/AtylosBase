@@ -80,18 +80,7 @@ namespace Atylos.ModifiableProperty
 
             propertyModificator.Disposed += propMod =>
             {
-                var owners =  PropertiesAndModificators.modifiableProperties.Where(kv => kv.Key is TTarget);
-
-                foreach(var owner in owners)
-                {
-                    foreach(var prop in owner.Value)
-                    {
-                        if(prop.Key == propertyModificator.TargetName)
-                        {
-                            prop.Value.UpdateValue();
-                        }
-                    }
-                }
+                PropertiesAndModificators.UpdateProperties<TTarget>(property.Name);
             };
 
             return propertyModificator;

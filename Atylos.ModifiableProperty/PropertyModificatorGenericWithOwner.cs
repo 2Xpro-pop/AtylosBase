@@ -74,6 +74,8 @@ namespace Atylos.ModifiableProperty
                     _ownerModificators[owner].Clear();
 
                     Disposing(this);
+
+                    PropertiesAndModificators.UpdateProperties<TTarget>(TargetName);
                 });
 
                 _disposables.Add(owner, disposable);
@@ -82,7 +84,8 @@ namespace Atylos.ModifiableProperty
             {
                 disposable = _disposables[owner];
             }
-            
+
+            PropertiesAndModificators.UpdateProperties<TTarget>(TargetName);
 
             return disposable;
         }
