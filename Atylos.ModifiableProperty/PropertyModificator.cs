@@ -48,14 +48,24 @@ namespace Atylos.ModifiableProperty
             return Order.CompareTo(other.Order);
         }
 
-
+        /// <summary>
+        /// Create modificator
+        /// </summary>
+        /// <typeparam name="TTarget"></typeparam>
+        /// <typeparam name="TProperty"></typeparam>
+        /// <param name="target"></param>
+        /// <param name="modificator"></param>
+        /// <param name="predicate"></param>
+        /// <param name="order"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public static PropertyModificator<TTarget, TProperty> CreateStaticModificator<TTarget, TProperty>(
             Expression<Func<TTarget, TProperty>> target,
             Func<TTarget, TProperty, TProperty> modificator,
             Func<TTarget, bool> predicate = null,
             float order = float.MaxValue)
         {
-            predicate = predicate == null ? (x => true) : predicate;
+            predicate = predicate ?? (x => true);
 
             if (!(target.Body is MemberExpression member))
             {
