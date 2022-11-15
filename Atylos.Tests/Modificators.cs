@@ -44,7 +44,7 @@ namespace Atylos.Tests
         {
             _disposables = new IDisposable[]
             {
-                IncommingModificator.UntilDispose(this, x => x * 2 + 20)
+                IncommingModificator.UntilDispose(this, x => x + 20)
             };
         }
 

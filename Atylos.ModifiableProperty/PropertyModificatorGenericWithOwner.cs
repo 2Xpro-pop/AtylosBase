@@ -21,11 +21,16 @@ namespace Atylos.ModifiableProperty
         public PropertyModificator(
             string targetName,
             float order)
-            : base(targetName, null, null, order) { }
+            : base(targetName, (x,y) =>  y, predicate => true, order) { }
 
         public override bool CanModify(TTarget target)
         {
             return _allModificators.Any(x => x.predicate(target));
+        }
+
+        public override bool CanModify(object target)
+        {
+            return _allModificators.Any(x => x.predicate((TTarget)target));
         }
 
         public override TProperty Modify(TTarget target, TProperty value)
@@ -41,6 +46,11 @@ namespace Atylos.ModifiableProperty
             return tVal;
         }
 
+        public override object Modify(object target, object value)
+        {
+            return Modify((TTarget)target, (TProperty)value);
+        }
+
         public IDisposable UntilDispose(TOwner owner, Func<TProperty, TProperty> modificator, Func<TTarget, bool> predicate)
         {
             CreateIfNotExist(owner, _ownerModificators);
@@ -50,17 +60,31 @@ namespace Atylos.ModifiableProperty
             _allModificators.Add(pair);
             _ownerModificators[owner].Add(pair);
 
-            return Disposable.Create(() =>
+            IDisposable disposable;
+
+            if(!_disposables.ContainsKey(owner))
             {
-                foreach(var modificatorPredicate in _ownerModificators[owner])
+                disposable = Disposable.Create(() =>
                 {
-                    _allModificators.Remove(modificatorPredicate);
-                }
+                    foreach (var modificatorPredicate in _ownerModificators[owner])
+                    {
+                        _allModificators.Remove(modificatorPredicate);
+                    }
 
-                _ownerModificators[owner].Clear();
+                    _ownerModificators[owner].Clear();
 
-                Disposing(this);
-            });
+                    Disposing(this);
+                });
+
+                _disposables.Add(owner, disposable);
+            }
+            else
+            {
+                disposable = _disposables[owner];
+            }
+            
+
+            return disposable;
         }
 
         public IDisposable UntilDispose(TOwner owner, Func<TProperty, TProperty> modificator)

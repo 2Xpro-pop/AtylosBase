@@ -20,7 +20,7 @@ namespace Atylos.ModifiableProperty
 
                 foreach (var modificator in PropertiesAndModificators.propertyModificators[TypeOf<TOwner>.Type][Name])
                 {
-                    if ((bool)(modificator?.CanModify(Owner)))
+                    if ((modificator.CanModify(Owner)))
                     {
                         tValue = (TProperty)modificator.Modify(Owner, tValue);
                     }

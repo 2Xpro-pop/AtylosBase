@@ -75,6 +75,7 @@ namespace Atylos.Tests
                 target.Incomming = 0;
                 Assert.That(target.Incomming, Is.EqualTo(20));
             }
+            Assert.That(target.Incomming, Is.EqualTo(0));
         }
     }
 }
