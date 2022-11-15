@@ -17,7 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AtylosBase\Atylos.csproj" />
+    <ProjectReference Include="..\Atylos.ModifiableProperty\Atylos.ModifiableProperty.csproj" />
+    <ProjectReference Include="..\Atylos\Atylos.csproj" />
   </ItemGroup>
 
 </Project>

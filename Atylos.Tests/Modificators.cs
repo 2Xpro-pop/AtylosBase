@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Atylos.Tests
 {
-    internal class Modificators
+    internal class Modificators: IDisposable
     {
         public static readonly PropertyModificator<ClassWithModifiableProperties, int> PriceModificator =
             PropertyModificator.CreateStaticModificator(
@@ -32,5 +32,28 @@ namespace Atylos.Tests
                     }));
                 }
             );
+
+        public static readonly PropertyModificator<Modificators, ClassWithModifiableProperties, double> IncommingModificator =
+            PropertyModificator.CreateModificator<Modificators, ClassWithModifiableProperties, double>(
+                x => x.Incomming
+            );
+
+        private IDisposable[] _disposables;
+
+        public Modificators()
+        {
+            _disposables = new IDisposable[]
+            {
+                IncommingModificator.UntilDispose(this, x => x * 2 + 20)
+            };
+        }
+
+        public void Dispose()
+        {
+            for(var i = 0; i < _disposables.Length; i++)
+            {
+                _disposables[i].Dispose();
+            }
+        }
     }
 }

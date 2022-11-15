@@ -20,10 +20,17 @@ namespace Atylos.Tests
             set => this.SetValue(value);
         } 
 
+        public double Incomming
+        {
+            get => this.GetValue<ClassWithModifiableProperties, double>();
+            set => this.SetValue(value);
+        }
+
         public ClassWithModifiableProperties(int price, string name)
         {
             Price = price;
             Name = name;
+            Incomming = 0;
         }
     }
 }

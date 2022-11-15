@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
@@ -8,6 +9,8 @@ namespace Atylos.ModifiableProperty
 {
     public class PropertyModificator : IDisposable, IComparable<PropertyModificator>
     {
+        public event Action<PropertyModificator> Disposed;
+
         private readonly Func<object, bool> _predicate;
         private readonly Func<object, object, object> _modificator;
 
@@ -18,6 +21,9 @@ namespace Atylos.ModifiableProperty
             Order = order;
             TargetName = targetName;
         }
+
+        
+        
         public virtual bool CanModify(object target) => _predicate.Invoke(target);
         public virtual object Modify(object target, object value) => _modificator.Invoke(target, value);
 
@@ -30,8 +36,12 @@ namespace Atylos.ModifiableProperty
             var modificators = PropertiesAndModificators.propertyModificators[TargetType][TargetName];
             modificators.Remove(this);
 
+            Disposing(this);
+
             GC.SuppressFinalize(this);
         }
+
+        protected void Disposing(PropertyModificator propertyModificator) => Disposed?.Invoke(propertyModificator);
 
         public int CompareTo(PropertyModificator other)
         {
@@ -67,6 +77,22 @@ namespace Atylos.ModifiableProperty
             var modificators = PropertiesAndModificators.propertyModificators[TypeOf<TTarget>.Type][property.Name];
 
             modificators.AddSorted(propertyModificator);
+
+            propertyModificator.Disposed += propMod =>
+            {
+                var owners =  PropertiesAndModificators.modifiableProperties.Where(kv => kv.Key is TTarget);
+
+                foreach(var owner in owners)
+                {
+                    foreach(var prop in owner.Value)
+                    {
+                        if(prop.Key == propertyModificator.TargetName)
+                        {
+                            prop.Value.UpdateValue();
+                        }
+                    }
+                }
+            };
 
             return propertyModificator;
         }

@@ -11,6 +11,5 @@ namespace Atylos.ModifiableProperty
 
         internal readonly static Dictionary<Type, Dictionary<string, List<PropertyModificator>>> propertyModificators =
             new Dictionary<Type, Dictionary<string, List<PropertyModificator>>>();
-
     }
 }

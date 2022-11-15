@@ -45,5 +45,10 @@ namespace Atylos.ModifiableProperty
         {
             Owner = owner;
         }
+
+        public override void UpdateValue()
+        {
+            Value = Value;
+        }
     }
 }

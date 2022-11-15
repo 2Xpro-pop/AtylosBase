@@ -3,9 +3,11 @@ using System;
 
 namespace Atylos.ModifiableProperty
 {
-    public class ModifiableProperty : ReactiveObject
+    public abstract class ModifiableProperty : ReactiveObject
     {
         public virtual string Name { get; }
+
+        public abstract void UpdateValue();
 
         public ModifiableProperty(string name)
         {

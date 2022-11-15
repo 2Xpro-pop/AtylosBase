@@ -11,13 +11,10 @@ namespace Atylos.Tests
 {
     public class ModifiablePropertiesUnitTest
     {
-        private Modificators modificators;
-
 
         [SetUp]
         public void Setup()
         {
-            modificators = new Modificators();
         }
 
         [Test]
@@ -66,8 +63,18 @@ namespace Atylos.Tests
                 Assert.That(price, Is.EqualTo(90*6));
             });
 
-            
+        }
 
+        [Test]
+        public void NonStaticModificator()
+        {
+            var target = new ClassWithModifiableProperties(100, "uppercase");
+
+            using(var modificators = new Modificators())
+            {
+                target.Incomming = 0;
+                Assert.That(target.Incomming, Is.EqualTo(20));
+            }
         }
     }
 }

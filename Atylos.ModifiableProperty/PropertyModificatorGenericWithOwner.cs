@@ -58,6 +58,8 @@ namespace Atylos.ModifiableProperty
                 }
 
                 _ownerModificators[owner].Clear();
+
+                Disposing(this);
             });
         }
 
