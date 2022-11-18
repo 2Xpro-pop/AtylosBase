@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Atylos.ModifiableProperty\Atylos.ModifiableProperty.csproj" />
+    <ProjectReference Include="..\Atylos.ScopableServiceProvider\Atylos.ScopableServiceProvider.csproj" />
     <ProjectReference Include="..\Atylos\Atylos.csproj" />
   </ItemGroup>
 

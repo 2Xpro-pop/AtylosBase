@@ -9,33 +9,24 @@ namespace Atylos.ScopableServiceProvider
     {
         private readonly Dictionary<Type, ServiceDescriptor> _serviceDescriptors = new Dictionary<Type, ServiceDescriptor>();
 
-        public void AddSingleton<T, U>() where U: T
+        public void AddScoped<T, U>(Enum scope)
         {
             _serviceDescriptors[typeof(T)] = new ServiceDescriptor()
             {
-                Scope = BasicScope.Singletone,
+                Scope = scope,
                 InstanceType = typeof(U)
             };
         }
 
-        public void AddSingleton<T>() 
-        {
-            AddSingleton<T, T>();
-        }
+        public void AddScoped<T>(Enum scope) => AddScoped<T, T>(scope);
 
-        public void AddTransient<T, U>() where U: T
-        {
-            _serviceDescriptors[typeof(T)] = new ServiceDescriptor()
-            {
-                Scope = null,
-                InstanceType = typeof(U)
-            };
-        }
+        public void AddSingleton<T, U>() where U : T => AddScoped<T, U>(BasicScope.Singletone);
 
-        public void AddTransient<T>()
-        {
-            AddTransient<T, T>();
-        }
+        public void AddSingleton<T>() => AddSingleton<T, T>();
+
+        public void AddTransient<T, U>() where U : T => AddScoped<T, U>(null);
+
+        public void AddTransient<T>() => AddTransient<T, T>();
 
         public ScopableServiceProvider Build()
         {

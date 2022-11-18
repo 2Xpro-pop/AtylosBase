@@ -27,7 +27,7 @@ namespace Atylos.ScopableServiceProvider
 
             if(descriptor.Scope == null)
             {
-                return ActivatorUtilities.CreateInstance(this, descriptor.InstanceType);
+                return ActivatorUtilities.GetServiceOrCreateInstance(this, descriptor.InstanceType);
             }
 
             return descriptor.Instance;
@@ -42,9 +42,9 @@ namespace Atylos.ScopableServiceProvider
         {
             CreateIfNull(_scopeServices, scope);
 
-            foreach(var descriptor in _serviceDescriptors.Values.Where(d => d.Scope.Equals(scope)))
+            foreach(var descriptor in _serviceDescriptors.Values.Where(d => d.Scope != null && d.Scope.Equals(scope)))
             {
-                descriptor.Instance = ActivatorUtilities.CreateInstance(this, descriptor.InstanceType);
+                descriptor.Instance = ActivatorUtilities.GetServiceOrCreateInstance(this, descriptor.InstanceType);
 
                 _scopeServices[scope].Add(descriptor);
             }
