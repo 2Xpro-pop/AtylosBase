@@ -15,4 +15,8 @@
     <Folder Include="Abstraction\Implements\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Atylos.ModifiableProperty\Atylos.ModifiableProperty.csproj" />
+  </ItemGroup>
+
 </Project>
