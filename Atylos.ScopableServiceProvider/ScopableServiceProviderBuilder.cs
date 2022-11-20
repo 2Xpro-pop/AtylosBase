@@ -28,7 +28,7 @@ namespace Atylos.ScopableServiceProvider
 
         public void AddTransient<T>() => AddTransient<T, T>();
 
-        public PoorScopableServiceProvider Build()
+        public IScopableServiceProvider Build()
         {
             var serviceProvider = new PoorScopableServiceProvider(_serviceDescriptors);
             serviceProvider.ActivateScope(BasicScope.Singletone);
