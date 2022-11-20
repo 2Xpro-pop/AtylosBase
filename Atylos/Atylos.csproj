@@ -4,6 +4,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <BaseOutputPath>C:\Users\ASUS\UnityProjects\Atylos\Assets\Dlls</BaseOutputPath>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/2Xpro-pop/AtylosBase</RepositoryUrl>
+    <Description>For unity!</Description>
   </PropertyGroup>
 
   <ItemGroup>
