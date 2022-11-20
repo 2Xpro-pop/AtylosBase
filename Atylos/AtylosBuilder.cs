@@ -1,4 +1,6 @@
 ﻿using Atylos.Abstraction;
+using Atylos.Abstraction.Implements;
+using Atylos.ScopableServiceProvider;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,32 +9,17 @@ namespace Atylos
 {
     public class AtylosBuilder
     {
-        private readonly SimpleServiceProvider _serviceProvider = new SimpleServiceProvider();
+        public ScopableServiceProviderBuilder Services { get; } = new ScopableServiceProviderBuilder();
         private List<Fraction> Fractions { get; } = new List<Fraction>();
 
-        public AtylosBuilder() { }
-
-        public void AddService<T, U>() where U : T, new()
+        public AtylosBuilder() 
         {
-            _serviceProvider.AddService<T, U>();
-        }
-
-        public void AddService<T>(T service)
-        {
-            _serviceProvider.AddService(service);
+            Services.AddBattle<IUnitBattleSelector, NearestUnitSelector>();
         }
 
         public AtylosMatch Build()
         {
-            var match = new AtylosMatch(_serviceProvider, Fractions.ToArray());
-
-            foreach(var service in _serviceProvider)
-            {
-                if(service is IBuildingEvent building)
-                {
-                    building.OnBuilding(match);
-                }
-            }
+            var match = new AtylosMatch(Services.Build(), Fractions.ToArray());
 
             return match;
         }

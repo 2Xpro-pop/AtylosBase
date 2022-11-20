@@ -9,7 +9,7 @@ namespace Atylos.ScopableServiceProvider
     /// <summary>
     /// Why poor? Because compared to Microsoft.Extensions.DependencyInjection.Abstractions it is poor in features.
     /// </summary>
-    public class PoorScopableServiceProvider : IServiceProvider
+    public class PoorScopableServiceProvider : IScopableServiceProvider
     {
         private readonly IReadOnlyDictionary<Type, ServiceDescriptor> _serviceDescriptors;
         private readonly Dictionary<Enum, List<ServiceDescriptor>> _scopeServices = new Dictionary<Enum, List<ServiceDescriptor>>();

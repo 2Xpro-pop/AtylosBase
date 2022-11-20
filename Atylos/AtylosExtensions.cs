@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Atylos.ScopableServiceProvider;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq.Expressions;
@@ -12,6 +13,13 @@ namespace Atylos
         {
             return (T)serviceProvider.GetService(TypeOf<T>.Type);
         }
+
+        public static void AddBattle<T, U>(this ScopableServiceProviderBuilder builder)
+        {
+            builder.AddScoped<T, U>(AtylosScopes.BattleScope);
+        }
+
+        public static void AddBattle<T>(this ScopableServiceProviderBuilder builder) => AddBattle<T, T>(builder);
 
 
         public static void AddSorted<T>(this List<T> @this, T item) where T : IComparable<T>

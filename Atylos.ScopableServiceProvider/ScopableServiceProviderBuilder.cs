@@ -30,7 +30,9 @@ namespace Atylos.ScopableServiceProvider
 
         public IScopableServiceProvider Build()
         {
-            var serviceProvider = new PoorScopableServiceProvider(_serviceDescriptors);
+            var serviceProvider = new PoorScopableServiceProvider(
+                new Dictionary<Type, ServiceDescriptor>(_serviceDescriptors)
+            );
             serviceProvider.ActivateScope(BasicScope.Singletone);
 
             return serviceProvider;

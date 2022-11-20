@@ -6,6 +6,6 @@ namespace Atylos.Abstraction
 {
     public interface IUnitBattleSelector
     {
-        AtylosUnit Select(AtylosUnit atylosUnit);
+        AtylosUnit Select(AtylosBattle battle,AtylosUnit self);
     }
 }

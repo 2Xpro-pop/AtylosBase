@@ -6,8 +6,8 @@ namespace Atylos.ScopableServiceProvider
 {
     public class ServiceDescriptor
     {
-        public object Instance { get; set; }
-        public Enum Scope { get; set; }
-        public Type InstanceType { get; set; }
+        public virtual object Instance { get; set; }
+        public virtual Enum Scope { get; set; }
+        public virtual Type InstanceType { get; set; }
     }
 }
