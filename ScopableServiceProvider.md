@@ -9,7 +9,7 @@ Singleton services are the same for every scopes.
 
 ### For example
 
-Create simple service:
+Create simple services:
 ```csharp
 enum ExampleScopes
 {
