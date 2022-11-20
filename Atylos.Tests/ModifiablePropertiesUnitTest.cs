@@ -20,7 +20,7 @@ namespace Atylos.Tests
         [Test]
         public void PriceChanged()
         {
-            Debug.WriteLine(Modificators.PriceModificator.TargetName);
+            Console.WriteLine(Modificators.PriceModificator.TargetName);
 
             var target = new ClassWithModifiableProperties(100, "Hi");
 
@@ -30,21 +30,24 @@ namespace Atylos.Tests
         [Test]
         public void NamesChanged()
         {
-            Debug.WriteLine(Modificators.PriceModificator.TargetName);
+            Console.WriteLine(Modificators.PriceModificator.TargetName);
 
             var target = new ClassWithModifiableProperties(100, "Hi");
             var target2 = new ClassWithModifiableProperties(100, "uppercase");
+
             Assert.Multiple(() =>
             {
                 Assert.That(target.Name, Is.EqualTo("Ha"));
                 Assert.That(target2.Name, Is.EqualTo("UaPaRaAaE"));
             });
+
+            
         }
 
         [Test]
         public void PropertiesObserved()
         {
-            Debug.WriteLine(Modificators.PriceModificator.TargetName);
+            Console.WriteLine(Modificators.PriceModificator.TargetName);
 
             var target = new ClassWithModifiableProperties(100, "uppercase")
             {

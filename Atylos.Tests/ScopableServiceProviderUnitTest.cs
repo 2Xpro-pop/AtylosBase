@@ -21,6 +21,7 @@ namespace Atylos.Tests
 
             builder.AddTransient<IA, A>();
             builder.AddTransient<B>();
+            builder.AddTransient<DMultiplyer>();
 
             builder.AddScoped<ICScope, CScope>(ExampleScopes.C);
             builder.AddScoped<DScope>(ExampleScopes.D);
@@ -33,12 +34,17 @@ namespace Atylos.Tests
         {
             using(services.ActivateScope(ExampleScopes.C))
             {
-                using(services.ActivateScope(ExampleScopes.D))
+                using (services.ActivateScope(ExampleScopes.D))
                 {
                     var d = services.GetService<DScope>();
 
                     Assert.That(d.Bar(), Is.EqualTo(46));
                 }
+                Assert.Throws<InvalidOperationException>(() =>
+                {
+                    var dm = services.GetService<DMultiplyer>();
+                });
+                
             }
 
         }
@@ -94,6 +100,21 @@ namespace Atylos.Tests
             public int Bar()
             {
                 return _cScope.Bar() * _singletone.Foo;
+            }
+        }
+
+        class DMultiplyer
+        {
+            private DScope _dScope;
+
+            public DMultiplyer(DScope dScope)
+            {
+                _dScope = dScope;
+            }
+
+            public int Boo()
+            {
+                return _dScope.Bar();
             }
         }
     }
