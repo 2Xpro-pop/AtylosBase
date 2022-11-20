@@ -9,7 +9,7 @@ namespace Atylos.Abstraction
     {
         public BattlePosition Position { get; set; }
 
-        public bool IsEnemy { get;  }
+        public bool IsEnemy { get; set; }
 
         public int Damage
         {
@@ -28,13 +28,8 @@ namespace Atylos.Abstraction
             set => this.SetValue(value);
         }
 
-        public AtylosBattle Battle { get; }
+        public AtylosBattle Battle { get; set; }
 
-        public AtylosUnit(AtylosBattle battle, bool isEnemy)
-        {
-            Battle = battle;
-            IsEnemy = isEnemy;
-        }
 
 
         protected abstract void OnTakingDamage(ref DamageInfo damageInfo);
@@ -44,7 +39,7 @@ namespace Atylos.Abstraction
         {
             var selector = Battle.AtylosMatch.Services.GetService<IUnitBattleSelector>();
 
-            var enemy = selector.Select(this);
+            var enemy = selector.Select(Battle, this);
 
             var dmgInfo = new DamageInfo(this, DamageType, Damage);
 

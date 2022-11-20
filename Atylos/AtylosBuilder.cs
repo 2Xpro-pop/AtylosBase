@@ -10,7 +10,7 @@ namespace Atylos
     public class AtylosBuilder
     {
         public ScopableServiceProviderBuilder Services { get; } = new ScopableServiceProviderBuilder();
-        private List<Fraction> Fractions { get; } = new List<Fraction>();
+        public List<Fraction> Fractions { get; } = new List<Fraction>();
 
         public AtylosBuilder() 
         {
