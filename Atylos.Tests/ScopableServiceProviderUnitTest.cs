@@ -10,7 +10,7 @@ namespace Atylos.Tests
 {
     public class ScopableServiceProviderUnitTest
     {
-        private ScopableServiceProvider.ScopableServiceProvider services;
+        private ScopableServiceProvider.PoorScopableServiceProvider services;
 
         [SetUp]
         public void Setup()

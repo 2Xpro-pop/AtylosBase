@@ -6,12 +6,15 @@ using System.Reactive.Disposables;
 
 namespace Atylos.ScopableServiceProvider
 {
-    public class ScopableServiceProvider : IServiceProvider
+    /// <summary>
+    /// Why poor? Because compared to Microsoft.Extensions.DependencyInjection.Abstractions it is poor in features.
+    /// </summary>
+    public class PoorScopableServiceProvider : IServiceProvider
     {
         private readonly IReadOnlyDictionary<Type, ServiceDescriptor> _serviceDescriptors;
         private readonly Dictionary<Enum, List<ServiceDescriptor>> _scopeServices = new Dictionary<Enum, List<ServiceDescriptor>>();
 
-        public ScopableServiceProvider(IReadOnlyDictionary<Type, ServiceDescriptor> serviceDescriptors)
+        public PoorScopableServiceProvider(IReadOnlyDictionary<Type, ServiceDescriptor> serviceDescriptors)
         {
             _serviceDescriptors = serviceDescriptors;
         }
