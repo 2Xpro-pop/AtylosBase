@@ -12,13 +12,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Atylos.ModifiableProperty" Version="1.0.1" />
+    <PackageReference Include="Atylos.ScopableServiceProvider" Version="1.0.1" />
     <PackageReference Include="ReactiveUI" Version="18.3.1" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Atylos.ModifiableProperty\Atylos.ModifiableProperty.csproj" />
-    <ProjectReference Include="..\Atylos.ScopableServiceProvider\Atylos.ScopableServiceProvider.csproj" />
   </ItemGroup>
 
 </Project>

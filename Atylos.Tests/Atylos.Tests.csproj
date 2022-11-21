@@ -11,6 +11,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Atylos" Version="1.0.0" />
+    <PackageReference Include="Atylos.ModifiableProperty" Version="1.0.1" />
+    <PackageReference Include="Atylos.ScopableServiceProvider" Version="1.0.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.3.1" />
@@ -22,12 +25,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Atylos.ModifiableProperty\Atylos.ModifiableProperty.csproj" />
-    <ProjectReference Include="..\Atylos.ScopableServiceProvider\Atylos.ScopableServiceProvider.csproj" />
-    <ProjectReference Include="..\Atylos\Atylos.csproj" />
   </ItemGroup>
 
 </Project>

@@ -66,6 +66,8 @@ namespace Atylos.Tests
                 Assert.That(price, Is.EqualTo(90*6));
             });
 
+
+            target.Name = "sada";
         }
 
         [Test]

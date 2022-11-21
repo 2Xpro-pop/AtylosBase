@@ -37,7 +37,11 @@ namespace Atylos.ModifiableProperty
         public TProperty ModifiedValue
         {
             get => _modifiedValue;
-            private set => this.RaiseAndSetIfChanged(ref _modifiedValue, value);
+            private set 
+            {
+                _modifiedValue = value;
+                this.RaisePropertyChanged();
+            }
         }
         private TProperty _modifiedValue;
 
