@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <BaseOutputPath>C:\Users\ASUS\UnityProjects\Atylos\Assets\Dlls</BaseOutputPath>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/2Xpro-pop/AtylosBase</RepositoryUrl>
     <Description>For unity!</Description>
@@ -12,8 +11,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Atylos.ModifiableProperty" Version="1.0.1" />
-    <PackageReference Include="Atylos.ScopableServiceProvider" Version="1.0.1" />
+    <PackageReference Include="Atylos.ModifiableProperty" Version="1.0.2" />
+    <PackageReference Include="Atylos.ScopableServiceProvider" Version="1.0.2" />
     <PackageReference Include="ReactiveUI" Version="18.3.1" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
   </ItemGroup>
