@@ -29,7 +29,7 @@ namespace Atylos
         }
 
         public IObservable<BattleResult> BattleEnd => _battleEnds;
-        private Subject<BattleResult> _battleEnds = new Subject<BattleResult>();
+        private readonly Subject<BattleResult> _battleEnds = new Subject<BattleResult>();
         public AtylosMatch AtylosMatch { get; }
         public IReadOnlyList<AtylosUnit> Units { get; }
         public IReadOnlyList<AtylosUnit> UnitsEnemy { get; }
@@ -45,6 +45,11 @@ namespace Atylos
             {
                 return Units.FirstOrDefault(unit => unit.Position == position);
             }
+        }
+
+        public void EndBattle(BattleResult battleResult)
+        {
+            _battleEnds.OnNext(battleResult);
         }
     }
 }
